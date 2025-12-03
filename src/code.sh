@@ -9,10 +9,10 @@ dx-download-all-inputs --parallel
 
 
 # make output folders
-mkdir -p ~/out ./genome ~/out/all_outputs ~/out/html_report
+mkdir -p ~/out ./genome ~/out/all_outputs ~/out/html_reports
 
 # download SCIP docker image 
-scip_docker_file_id=project-Gkvkbjj03P8qxxk16qb1yqqQ:file-J0XvF6803P8fYVQX11jgGf8v
+scip_docker_file_id=project-Gkvkbjj03P8qxxk16qb1yqqQ:file-J4gV76803P8X87GGJbBKpgj2
 dx download ${scip_docker_file_id}
 
 ls
@@ -32,14 +32,16 @@ echo ${mpileup_hbb_name}
 
 filename=${mpileup_hbb_name} 
 
-sample=$(echo ${filename} | grep -o -E 'SCIP[0-9]+' | tail -n1)
+sample=$(echo ${filename} | grep -o -E 'SCIP[[:alnum:]]+' | tail -n1)
 
 
 echo $sample 
 
-output_html_file_path="/home/dnanexus/out/html_report/${sample}_Report.html"
+# Create folder for HTML reports
+output_html_dir="/home/dnanexus/out/html_reports/"
+mkdir -p "${output_html_dir}"
 
-docker run --name scip -v /home/dnanexus:/home/dnanexus ${scip_docker_image_name} ${output_html_file_path} ${mpileup_hbb_path} ${mpileup_sced_path} #> /home/dnanexus/${sample}_Report2.html
+docker run --name scip -v /home/dnanexus:/home/dnanexus ${scip_docker_image_name} ${output_html_dir} ${sample} ${mpileup_hbb_path} ${mpileup_sced_path} ${mpileup_hbb_155bp_path} ${mpileup_sced_155bp_path}  #> /home/dnanexus/${sample}_Report2.html
 
 # upload outputs
 dx-upload-all-outputs --parallel
