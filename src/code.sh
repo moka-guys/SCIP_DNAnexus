@@ -12,7 +12,7 @@ dx-download-all-inputs --parallel
 mkdir -p ~/out ./genome ~/out/all_outputs ~/out/html_reports
 
 # download SCIP docker image 
-scip_docker_file_id=project-Gkvkbjj03P8qxxk16qb1yqqQ:file-J9y8Bb003P8Z8Qy11X5J50k5
+scip_docker_file_id=project-Gkvkbjj03P8qxxk16qb1yqqQ:file-JBz45pj03P8X09bjQQ8XkY0J
 dx download ${scip_docker_file_id}
 
 ls
